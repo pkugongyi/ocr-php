@@ -75,6 +75,7 @@ class Upload
                     // 查询并读取消息队列中的数据,10s超时，每0.1秒重试一次
                     $data_out = $this->getMessageFromQueue($connection,$correlationId, 10, 100);
                     error_log("fen 的实际值：" . var_export($data_out['data']['fen'], true));
+                    // test git
 
 
 
