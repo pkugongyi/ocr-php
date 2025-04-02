@@ -77,6 +77,7 @@ class Upload
                     error_log("fen 的实际值：" . var_export($data_out['data']['fen'], true));
 
 
+
                     if ($data_out['status'] === 'failed' ||
                         !isset($data_out['data']['fen']) ||
                         $data_out['data']['fen'] === null ||
