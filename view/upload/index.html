@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Upload</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Upload Image</h1>
+    <form id="uploadForm" enctype="multipart/form-data">
+        <input type="file" name="image" id="image" accept="image/*">
+        <button type="button" onclick="uploadImage()">Upload</button>
+    </form>
+    <div id="result"></div>
+
+    <script>
+        function uploadImage() {
+            // 创建一个FormData对象
+            var formData = new FormData();
+            var file = document.getElementById('image').files[0];
+            formData.append('image', file);
+
+            // 使用AJAX提交数据
+            $.ajax({
+                url: '/upload/uploadImage',
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                    if (response.status === 'success') {
+                        $('#result').html('<p>Upload successful! <BR>Image path: ' + response.data.image_path + '<br>Status: ' + response.status + '<br>Id: ' + response.id + '<br>fen: ' + response.data.fen  + '<br>Time Consumed: ' + response.data.time_consumed   + '<br>Message: ' + response.message + '</p>');
+                    } else {
+                        $('#result').html('<p>Error: ' + response.message + '</p>');
+                    }
+                },
+                error: function() {
+                    $('#result').html('<p>An error occurred while uploading the file.</p>');
+                }
+            });
+        }
+    </script>
+</body>
+</html>
